@@ -1,3 +1,4 @@
+import { Button } from './components/ui/button';
 import { useBoundStore } from './store';
 
 export function App() {
@@ -11,6 +12,10 @@ export function App() {
       <button onClick={decrement}>Decrement</button>
       <button onClick={reset}>Reset</button>
       <button onClick={() => incrementBy(10)}>Increment By 10</button>
+
+      <div className='flex min-h-svh flex-col items-center justify-center'>
+        <Button>Click me</Button>
+      </div>
     </div>
   );
 }
