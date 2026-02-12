@@ -1,5 +1,5 @@
 {
-  "name": "shadcn-ui-vite-react",
+  "name": "seller-central-ops-ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,6 +17,11 @@
   "simple-git-hooks": {
     "pre-commit": "npx pretty-quick --staged"
   },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10",
+    "pnpm": ">=10"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "@tanstack/react-query": "^5.90.20",
@@ -28,6 +33,7 @@
     "radix-ui": "^1.4.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-router-dom": "^7.13.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
     "zustand": "^5.0.11"

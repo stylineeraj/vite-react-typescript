@@ -1,6 +1,18 @@
+export type TUser = {
+  id: number;
+  name: string;
+  email: string;
+  profileImage: string;
+  isAdmin?: boolean;
+  token: string | null;
+  parentRoleId: number;
+  roles: Array<{ label: string; value: number }>;
+};
+
 export type TUserState = {
-  user: { name: string; email: string; age: number; isAdmin: boolean };
-  setUser: (user: { name: string; email: string }) => void;
+  user: TUser;
+  setUser: (user: TUser) => void;
+  setToken: (token: string | null) => void;
   logout: () => void;
 };
 

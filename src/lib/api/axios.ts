@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { useBoundStore } from '@/store';
+import type { TypedAxiosInstance } from './types';
 
-const axiosInstance = axios.create({
+const baseAxios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -8,34 +10,38 @@ const axiosInstance = axios.create({
 });
 
 // Request interceptor (e.g., add auth tokens)
-axiosInstance.interceptors.request.use(
+baseAxios.interceptors.request.use(
   (config) => {
-    // Add auth token if available
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    // Get token from store (which syncs with localStorage)
+    const token = useBoundStore.getState().user.token;
+    console.log('token', token);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
+  (err) => {
+    return Promise.reject(err);
   }
 );
 
 // Response interceptor (e.g., handle errors globally)
-axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
+baseAxios.interceptors.response.use(
+  (res) => res,
+  (err) => {
     // Handle global error cases
-    if (error.response?.status === 401) {
+    if (err.response?.status === 401) {
       // Handle unauthorized
-      // localStorage.removeItem('token');
-      // window.location.href = '/login';
+      useBoundStore.getState().logout();
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
-    return Promise.reject(error);
+    // console.error('API Error:', error);
+    return Promise.reject(err);
   }
 );
+
+const axiosInstance = baseAxios as TypedAxiosInstance;
 
 export { axiosInstance };
