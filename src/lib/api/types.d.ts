@@ -1,13 +1,6 @@
 import type { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
 
-export type ApiRoute =
-  // Auth routes
-  | '/v1/login/user'
-  | '/auth/login'
-  | '/auth/me'
-  // User routes
-  | '/users'
-  | `/users/${string}`;
+export type ApiRoute = TUrls[number];
 
 export type TypedAxiosInstance = {
   get<T = any, R = AxiosResponse<T>>(
